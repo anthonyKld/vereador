@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabela de Pesquisas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <script>
+        function carregarDados() {
+            const dados = localStorage.getItem('dadosPesquisas');
+            return dados ? JSON.parse(dados) : [];
+        }
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Tabela de Pesquisas</h2>
+        <table class="table table-bordered table-striped" id="tabelaPesquisas">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Data e Hora</th>
+                    <th>Nome do Pesquisador</th>
+                    <th>Telefone do Pesquisador</th>
+                    <th>Nome do Entrevistado</th>
+                    <th>Telefone do Entrevistado</th>
+                    <th>Endereço</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- As linhas de dados serão preenchidas aqui -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Função para carregar os dados do localStorage
+        function carregarDados() {
+            const dadosJSON = localStorage.getItem('dadosPesquisas'); // Recupera os dados do localStorage
+            if (dadosJSON) {
+                const dados = JSON.parse(dadosJSON); // Converte a string JSON em objeto
+
+                const tabelaBody = document.querySelector('#tabelaPesquisas tbody');
+
+                // Preencher a tabela com os dados
+                dados.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${item['Submission Date']}</td>
+                        <td>${item['Nome do pesquisador:']}</td>
+                        <td>${item['Telefone do pesquisador:']}</td>
+                        <td>${item['Nome do entrevistado:']}</td>
+                        <td>${item['Telefone do entrevistado:']}</td>
+                        <td>${item['Rua:']} - ${item['Bairro:']}</td>
+                    `;
+                    tabelaBody.appendChild(row);
+                });
+            } else {
+                console.log('Nenhum dado encontrado no localStorage.');
+            }
+        }
+
+        // Carregar os dados ao carregar a página
+        window.onload = carregarDados;
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
